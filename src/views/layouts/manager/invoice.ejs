@@ -1,0 +1,461 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Invoice Management</title>
+    <link rel="icon" href="/images/icon.png" type="image/x-icon"/>
+    <link rel="stylesheet" href="/css/styles.min.css"/>
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/tabler-icons/1.35.0/iconfont/tabler-icons.min.css"
+          integrity="sha512-tpsEzNMLQS7w9imFSjbEOHdZav3/aObSESAL1y5jyJDoICFF2YwEdAHOPdOr1t+h8hTzar0flphxR76pd0V1zQ=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+</head>
+<body>
+<!--  Body Wrapper -->
+<div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
+     data-sidebar-position="fixed" data-header-position="fixed">
+    <!-- Sidebar Start -->
+    <aside class="left-sidebar">
+        <!-- Sidebar scroll-->
+        <div>
+            <div class="brand-logo d-flex align-items-center justify-content-between">
+                <a href="/manager/invoice" class="text-nowrap logo-img">
+                    <img src="/images/Logo.png" width="150" alt=""/>
+                </a>
+                <div class="close-btn d-xl-none d-block sidebartoggler cursor-pointer" id="sidebarCollapse">
+                    <i class="ti ti-x fs-8"></i>
+                </div>
+            </div>
+            <!-- Sidebar navigation-->
+            <nav class="sidebar-nav scroll-sidebar" data-simplebar="">
+                <ul id="sidebarnav">
+                    <li class="nav-small-cap">
+                        <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
+                        <span class="hide-menu">MANAGER</span>
+                    </li>
+                    <li class="sidebar-item">
+                        <a class="sidebar-link" href="/manager/dashboard" aria-expanded="false">
+                            <span>
+                              <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home-2"
+                                   width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
+                                   fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                   <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                   <path d="M5 12l-2 0l9 -9l9 9l-2 0"></path>
+                                   <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7"></path>
+                                   <path d="M10 12h4v4h-4z"></path>
+                                </svg>
+                            </span>
+                            <span class="hide-menu">Dashboard</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a class="sidebar-link" href="/manager/frontdesk" aria-expanded="false">
+                            <span>
+                                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-device-imac"
+                                     width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50"
+                                     fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                  <path d="M3 4a1 1 0 0 1 1 -1h16a1 1 0 0 1 1 1v12a1 1 0 0 1 -1 1h-16a1 1 0 0 1 -1 -1v-12z"/>
+                                  <path d="M3 13h18"/>
+                                  <path d="M8 21h8"/>
+                                  <path d="M10 17l-.5 4"/>
+                                  <path d="M14 17l.5 4"/>
+                                </svg>
+                            </span>
+                            <span class="hide-menu">Front desk</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a class="sidebar-link" href="/manager/room" aria-expanded="false">
+                            <span>
+                                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-bed-filled"
+                                     width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
+                                     fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                   <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                   <path d="M3 6a1 1 0 0 1 .993 .883l.007 .117v6h6v-5a1 1 0 0 1 .883 -.993l.117 -.007h8a3 3 0 0 1 2.995 2.824l.005 .176v8a1 1 0 0 1 -1.993 .117l-.007 -.117v-3h-16v3a1 1 0 0 1 -1.993 .117l-.007 -.117v-11a1 1 0 0 1 1 -1z"
+                                         stroke-width="0" fill="currentColor"></path>
+                                   <path d="M7 8a2 2 0 1 1 -1.995 2.15l-.005 -.15l.005 -.15a2 2 0 0 1 1.995 -1.85z"
+                                         stroke-width="0" fill="currentColor"></path>
+                                </svg>
+                            </span>
+                            <span class="hide-menu">Room</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item ">
+                        <a class="sidebar-link " href="/manager/reservation" aria-expanded="false">
+                            <span>
+                                <svg xmlns="http://www.w3.org/2000/svg"
+                                     class="icon icon-tabler icon-tabler-bookmark-filled" width="24" height="24"
+                                     viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                                     stroke-linecap="round" stroke-linejoin="round">
+                                   <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                   <path d="M14 2a5 5 0 0 1 5 5v14a1 1 0 0 1 -1.555 .832l-5.445 -3.63l-5.444 3.63a1 1 0 0 1 -1.55 -.72l-.006 -.112v-14a5 5 0 0 1 5 -5h4z"
+                                         stroke-width="0" fill="currentColor"></path>
+                                </svg>
+                            </span>
+                            <span class="hide-menu">Reservation</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a class="sidebar-link active" href="/manager/invoice" aria-expanded="false">
+                            <span>
+                                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-file-dollar"
+                                     width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
+                                     fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                   <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                   <path d="M14 3v4a1 1 0 0 0 1 1h4"></path>
+                                   <path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z"></path>
+                                   <path d="M14 11h-2.5a1.5 1.5 0 0 0 0 3h1a1.5 1.5 0 0 1 0 3h-2.5"></path>
+                                   <path d="M12 17v1m0 -8v1"></path>
+                                </svg>
+                            </span>
+                            <span class="hide-menu">Invoice</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a class="sidebar-link" href="/manager/feedback" aria-expanded="false">
+                            <span>
+                                <svg xmlns="http://www.w3.org/2000/svg"
+                                     class="icon icon-tabler icon-tabler-message-report" width="24" height="24"
+                                     viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                                     stroke-linecap="round" stroke-linejoin="round">
+                                   <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                   <path d="M4 21v-13a3 3 0 0 1 3 -3h10a3 3 0 0 1 3 3v6a3 3 0 0 1 -3 3h-9l-4 4"></path>
+                                   <path d="M12 8l0 3"></path>
+                                   <path d="M12 14l0 .01"></path>
+                                </svg>
+                            </span>
+                            <span class="hide-menu">Feedback</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a class="sidebar-link" href="/manager/service" aria-expanded="false">
+                            <span>
+                                <svg xmlns="http://www.w3.org/2000/svg"
+                                     class="icon icon-tabler icon-tabler-plane-arrival" width="24" height="24"
+                                     viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                                     stroke-linecap="round" stroke-linejoin="round">
+                                   <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                   <path d="M15.157 11.81l4.83 1.295a2 2 0 1 1 -1.036 3.863l-14.489 -3.882l-1.345 -6.572l2.898 .776l1.414 2.45l2.898 .776l-.12 -7.279l2.898 .777l2.052 7.797z"></path>
+                                   <path d="M3 21h18"></path>
+                                </svg>
+                            </span>
+                            <span class="hide-menu">Services</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a class="sidebar-link" href="/manager/meal" aria-expanded="false">
+                            <span>
+                                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-soup"
+                                     width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50"
+                                     fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                      <path d="M4 11h16a1 1 0 0 1 1 1v.5c0 1.5 -2.517 5.573 -4 6.5v1a1 1 0 0 1 -1 1h-8a1 1 0 0 1 -1 -1v-1c-1.687 -1.054 -4 -5 -4 -6.5v-.5a1 1 0 0 1 1 -1z"/>
+                                      <path d="M12 4a2.4 2.4 0 0 0 -1 2a2.4 2.4 0 0 0 1 2"/>
+                                      <path d="M16 4a2.4 2.4 0 0 0 -1 2a2.4 2.4 0 0 0 1 2"/>
+                                      <path d="M8 4a2.4 2.4 0 0 0 -1 2a2.4 2.4 0 0 0 1 2"/>
+                                </svg>
+                            </span>
+                            <span class="hide-menu">Meal</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a class="sidebar-link logout" href="" aria-expanded="false">
+                            <span>
+                                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-logout-2"
+                                     width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
+                                     fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                   <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                   <path d="M10 8v-2a2 2 0 0 1 2 -2h7a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-7a2 2 0 0 1 -2 -2v-2"></path>
+                                   <path d="M15 12h-12l3 -3"></path>
+                                   <path d="M6 15l-3 -3"></path>
+                                </svg>
+                            </span>
+                            <span class="hide-menu">Logout</span>
+                        </a>
+                    </li>
+                </ul>
+
+            </nav>
+            <!-- End Sidebar navigation -->
+        </div>
+    </aside>
+    <div class="body-wrapper">
+        <!--  Header Start -->
+        <header class="app-header mt-2">
+            <nav class="navbar navbar-expand-lg navbar-light align-items-center justify-content-center">
+                <div class="input-group mb-3 w-50">
+                    <input type="text" class="searchInvoice form-control" placeholder="Search now" aria-label="Search now" aria-describedby="button-addon2">
+                    <button class="btn btn-outline-secondary" type="button" id="searchInvoiceBtn">Search</button>
+                </div>
+                <ul class="navbar-nav">
+                    <li class="nav-item d-block d-xl-none">
+                        <a class="nav-link sidebartoggler nav-icon-hover" id="headerCollapse" href="javascript:void(0)">
+                            <i class="ti ti-menu-2"></i>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </header>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
+                    <div class="card">
+                        <div class="card-body p-3">
+                            <div class="row">
+                                <div class="col-8">
+                                    <div class="numbers">
+                                        <p class="text-sm mb-0 text-capitalize font-weight-bold">Total Revenue</p>
+                                        <h5 class="font-weight-bolder mb-0">
+                                            <%= parseInt(revenue.total).toLocaleString("vi-VN", {
+                                            style: "currency",
+                                            currency: "VND",
+                                            }) %>
+                                        </h5>
+                                    </div>
+                                </div>
+                                <div class="col-4 text-end">
+                                    <div class="icon icon-shape bg-gradient-primary shadow text-center border-radius-md">
+                                        <i class='bx bx-wallet-alt text-lg opacity-10' aria-hidden="true"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
+                    <div class="card">
+                        <div class="card-body p-3">
+                            <div class="row">
+                                <div class="col-8">
+                                    <div class="numbers">
+                                        <p class="text-sm mb-0 text-capitalize font-weight-bold">Room Revenue</p>
+                                        <h5 class="font-weight-bolder mb-0">
+                                            <%= parseInt(revenue.room_revenue).toLocaleString("vi-VN", {
+                                                style: "currency",
+                                                currency: "VND",
+                                            }) %>
+                                        </h5>
+                                    </div>
+                                </div>
+                                <div class="col-4 text-end">
+                                    <div class="icon icon-shape bg-gradient-primary shadow text-center border-radius-md">
+                                        <i class='bx bxs-contact text-lg opacity-10' aria-hidden="true"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
+                    <div class="card">
+                        <div class="card-body p-3">
+                            <div class="row">
+                                <div class="col-8">
+                                    <div class="numbers">
+                                        <p class="text-sm mb-0 text-capitalize font-weight-bold">Food Revenue</p>
+                                        <h5 class="font-weight-bolder mb-0">
+                                            <%= parseInt(revenue.meal_revenue).toLocaleString("vi-VN", {
+                                                style: "currency",
+                                                currency: "VND",
+                                            }) %>
+                                        </h5>
+                                    </div>
+                                </div>
+                                <div class="col-4 text-end">
+                                    <div class="icon icon-shape bg-gradient-primary shadow text-center border-radius-md">
+                                        <i class='bx bxs-user text-lg opacity-10' aria-hidden="true" ></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-sm-6">
+                    <div class="card">
+                        <div class="card-body p-3">
+                            <div class="row">
+                                <div class="col-8">
+                                    <div class="numbers">
+                                        <p class="text-sm mb-0 text-capitalize font-weight-bold">Transfer Revenue</p>
+                                        <h5 class="font-weight-bolder mb-0">
+                                            <%= parseInt(revenue.transport_revenue).toLocaleString("vi-VN", {
+                                                style: "currency",
+                                                currency: "VND",
+                                            }) %>
+                                        </h5>
+                                    </div>
+                                </div>
+                                <div class="col-4 text-end">
+                                    <div class="icon icon-shape bg-gradient-primary shadow text-center border-radius-md">
+                                        <i class='bx bxs-credit-card text-lg opacity-10' aria-hidden="true"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col invoiceSearchResult" >
+                            <h5 class="card-title fw-semibold mb-4">All invoices</h5>
+                            <% if (invoices.length===0) { %>
+                            <div class="alert alert-warning" role="alert">
+                                No data!
+                            </div>
+                            <% } else { %>
+
+                            <% invoices.forEach(function(invoice) { %>
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title">Reservation Id: <%= invoice.reservation.id %></h5>
+<!--                                    <div class="row mb-2 justify-content-start ">-->
+<!--                                        <div class="col d-flex align-items-center">-->
+<!--                                            <h6 class="card-subtitle fw-semibold">Room: </h6>-->
+<!--                                            <span class="badge bg-success rounded-3 "></span>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+                                    <div class="row justify-content-between mb-2">
+                                        <div class="col">
+                                            <h6 class="card-subtitle fw-semibold">Room:
+                                                <span
+                                                        class="fw-light text-muted"><%= invoice.reservation.room.roomNumber %></span>
+                                            </h6>
+                                        </div>
+                                        <div class="col">
+                                            <h6 class="card-subtitle fw-semibold">Total: <span
+                                                        class="fw-light text-muted"><%= invoice.roomTotal %></span>
+                                            </h6>
+                                        </div>
+                                        <div class="col">
+                                            <h6 class="card-subtitle fw-semibold">
+                                            </h6>
+                                        </div>
+                                    </div>
+                                    <div class="row justify-content-between mb-2">
+                                        <div class="col">
+                                            <h6 class="card-subtitle fw-semibold">Airport Transfer:
+                                                <span
+                                                        class="fw-light text-muted"><%= (invoice.reservation.transport)? 'Yes': 'No' %></span>
+                                            </h6>
+                                        </div>
+                                        <div class="col">
+                                            <h6 class="card-subtitle fw-semibold">Total: <span
+                                                        class="fw-light text-muted"><%= invoice.transportTotal %></span>
+                                            </h6>
+                                        </div>
+                                        <div class="col">
+                                            <h6 class="card-subtitle fw-semibold">
+                                            </h6>
+                                        </div>
+                                    </div>
+                                    <div class="row justify-content-between mb-2">
+                                        <div class="col">
+                                            <h6 class="card-subtitle fw-semibold">Meal:
+                                                <% const meals = invoice.reservation.meals.map((meal) => {
+                                                    return `<span class="fw-light text-muted"> ${meal.quantity} ${meal.meal_id.name} </span>`
+                                                }).join(",") %>
+                                                <%- meals %>
+                                            </h6>
+                                        </div>
+                                        <div class="col">
+                                            <h6 class="card-subtitle fw-semibold">Total: <span
+                                                        class="fw-light text-muted"><%= invoice.mealTotal %></span>
+                                            </h6>
+                                        </div>
+                                        <div class="col">
+                                            <h6 class="card-subtitle fw-semibold">
+                                            </h6>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-2 justify-content-start ">
+                                        <div class="col d-flex flex-row">
+                                            <h6 class="card-subtitle fw-semibold">Subtotal: <span
+                                                        class="fw-light text-muted"><%= invoice.subTotal %></span></h6>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-2 justify-content-start ">
+                                        <div class="col d-flex flex-row">
+                                            <h6 class="card-subtitle fw-semibold">Taxes: <span
+                                                        class="fw-light text-muted"><%= invoice.taxes %></span></h6>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-2 justify-content-start ">
+                                        <div class="col d-flex flex-row">
+                                            <h6 class="card-subtitle fw-semibold">Total: <span
+                                                        class="fw-light "><%= invoice.total %></span></h6>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <% }); %>
+                                <nav aria-label="Page navigation example">
+                                    <ul class="pagination justify-content-center">
+                                        <li class="page-item <%= pagination.page == 1 ? 'disabled' : ''%>">
+                                            <a class="page-link"
+                                               href="/manager/invoice/?page=<%= +pagination.page -1 && 1 %>"
+                                               aria-label="Previous">
+                                                <span aria-hidden="true">&laquo;</span>
+                                            </a>
+                                        </li>
+                                        <% for (let i = 1; i <= pagination.pages; i++) {%>
+                                            <li class="page-item <%= i == (pagination.page) && 'active'%>">
+                                                <a class="page-link" href="/manager/invoice/?page=<%= i %>"
+                                                ><%= i %></a>
+                                            </li>
+                                        <% }%>
+                                        <li class="page-item <%= pagination.page == pagination.pages ? 'disabled' : ''%>">
+                                            <a
+                                                    class="page-link"
+                                                    href="/manager/invoice/?page=<%= +pagination.page  + 1 %>"
+                                                    aria-label="Next"
+                                            >
+                                                <span aria-hidden="true">&raquo;</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </nav>
+                            <% } %>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"
+></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"
+        integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh"
+        crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/js/toastr.js"></script>
+<script src="/js/manager/sidebarmenu.js"></script>
+<script src="/js/manager/invoice.js"></script>
+<script>
+    $(document).ready(function () {
+        $('.logout').click(function () {
+            $.ajax({
+                url: '/api/v1/auth/logout',
+                type: 'GET',
+                success: function (data) {
+                    if (data.message == 'Logout success') {
+                        window.location.href = '/manager/login';
+                    }
+                }
+            });
+        });
+    });
+</script>
+</body>
+
+</html>

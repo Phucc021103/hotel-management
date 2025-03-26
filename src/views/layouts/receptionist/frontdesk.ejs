@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title><%= title %></title>
+    <link rel="icon" href="/images/icon.png" type="image/x-icon"/>
+    <link rel="stylesheet" href="/css/styles.min.css"/>
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/tabler-icons/1.35.0/iconfont/tabler-icons.min.css"
+          integrity="sha512-tpsEzNMLQS7w9imFSjbEOHdZav3/aObSESAL1y5jyJDoICFF2YwEdAHOPdOr1t+h8hTzar0flphxR76pd0V1zQ=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+    <style>
+        .room.active {
+            background-color: #5D87FF;
+        }
+    </style>
+</head>
+<body>
+<div class="page-wrapper show-sidebar" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6"
+     data-sidebartyp="full" data-sidebar-position="fixed" data-header-position="relative">
+    <!-- Sidebar Start -->
+    <aside class="left-sidebar <%= (role === "manager") ? 'd-none' : '' %>">
+        <!-- Sidebar scroll-->
+        <div>
+            <div class="brand-logo d-flex align-items-center justify-content-between">
+                <a href="/" class="text-nowrap logo-img">
+                    <img src="/images/Logo.png" width="150" alt=""/>
+                </a>
+                <div class="close-btn d-xl-none d-block sidebartoggler cursor-pointer" id="sidebarCollapse">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-arrow-bar-left"
+                         width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none"
+                         stroke-linecap="round" stroke-linejoin="round">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                        <path d="M4 12l10 0"/>
+                        <path d="M4 12l4 4"/>
+                        <path d="M4 12l4 -4"/>
+                        <path d="M20 4l0 16"/>
+                    </svg>
+                </div>
+            </div>
+            <!-- Sidebar navigation-->
+            <nav class="sidebar-nav scroll-sidebar" data-simplebar="">
+                <ul id="sidebarnav">
+                    <li class="nav-small-cap">
+                        <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
+                        <span class="hide-menu">Receptionist</span>
+                    </li>
+                    <li class="sidebar-item selected">
+                        <a class="sidebar-link" href="/receptionist/frontdesk" aria-expanded="false">
+                            <span>
+                              <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home-2"
+                                   width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
+                                   fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                   <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                   <path d="M5 12l-2 0l9 -9l9 9l-2 0"></path>
+                                   <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7"></path>
+                                   <path d="M10 12h4v4h-4z"></path>
+                                </svg>
+                            </span>
+                            <span class="hide-menu">Frontdesk</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a class="sidebar-link" href="/receptionist/reservation" aria-expanded="false">
+                            <span>
+                                <svg xmlns="http://www.w3.org/2000/svg"
+                                     class="icon icon-tabler icon-tabler-bookmark-filled" width="24" height="24"
+                                     viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                                     stroke-linecap="round" stroke-linejoin="round">
+                                   <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                   <path d="M14 2a5 5 0 0 1 5 5v14a1 1 0 0 1 -1.555 .832l-5.445 -3.63l-5.444 3.63a1 1 0 0 1 -1.55 -.72l-.006 -.112v-14a5 5 0 0 1 5 -5h4z"
+                                         stroke-width="0" fill="currentColor"></path>
+                                </svg>
+                            </span>
+                            <span class="hide-menu">Reservation</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a class="sidebar-link" href="/contact" aria-expanded="false">
+                            <span>
+                                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-note"
+                                     width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50"
+                                     fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M13 20l7 -7"/>
+  <path d="M13 20v-6a1 1 0 0 1 1 -1h6v-7a2 2 0 0 0 -2 -2h-12a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h7"/>
+</svg>
+                            </span>
+                            <span class="hide-menu">Send feedback</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </aside>
+    <aside class="left-sidebar <%= (role === "receptionist") ? 'd-none' : '' %>">
+        <!-- Sidebar scroll-->
+        <div>
+            <div class="brand-logo d-flex align-items-center justify-content-between">
+                <a href="/manager/dashboard" class="text-nowrap logo-img">
+                    <img src="/images/Logo.png" width="150" alt=""/>
+                </a>
+                <div class="close-btn d-xl-none d-block sidebartoggler cursor-pointer" id="sidebarCollapse">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-arrow-bar-left"
+                         width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none"
+                         stroke-linecap="round" stroke-linejoin="round">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                        <path d="M4 12l10 0"/>
+                        <path d="M4 12l4 4"/>
+                        <path d="M4 12l4 -4"/>
+                        <path d="M20 4l0 16"/>
+                    </svg>
+                </div>
+            </div>
+            <!-- Sidebar navigation-->
+            <nav class="sidebar-nav scroll-sidebar" data-simplebar="">
+                <ul id="sidebarnav">
+                    <li class="nav-small-cap">
+                        <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
+                        <span class="hide-menu">MANAGER</span>
+                    </li>
+                    <li class="sidebar-item">
+                        <a class="sidebar-link" href="/manager/dashboard" aria-expanded="false">
+                            <span>
+                              <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home-2"
+                                   width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
+                                   fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                   <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                   <path d="M5 12l-2 0l9 -9l9 9l-2 0"></path>
+                                   <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7"></path>
+                                   <path d="M10 12h4v4h-4z"></path>
+                                </svg>
+                            </span>
+                            <span class="hide-menu">Dashboard</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a class="sidebar-link active" href="/manager/frontdesk" aria-expanded="false">
+                            <span>
+                                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-device-imac"
+                                     width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50"
+                                     fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                  <path d="M3 4a1 1 0 0 1 1 -1h16a1 1 0 0 1 1 1v12a1 1 0 0 1 -1 1h-16a1 1 0 0 1 -1 -1v-12z"/>
+                                  <path d="M3 13h18"/>
+                                  <path d="M8 21h8"/>
+                                  <path d="M10 17l-.5 4"/>
+                                  <path d="M14 17l.5 4"/>
+                                </svg>
+                            </span>
+                            <span class="hide-menu">Front desk</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a class="sidebar-link" href="/manager/room" aria-expanded="false">
+                            <span>
+                                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-bed-filled"
+                                     width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
+                                     fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                   <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                   <path d="M3 6a1 1 0 0 1 .993 .883l.007 .117v6h6v-5a1 1 0 0 1 .883 -.993l.117 -.007h8a3 3 0 0 1 2.995 2.824l.005 .176v8a1 1 0 0 1 -1.993 .117l-.007 -.117v-3h-16v3a1 1 0 0 1 -1.993 .117l-.007 -.117v-11a1 1 0 0 1 1 -1z"
+                                         stroke-width="0" fill="currentColor"></path>
+                                   <path d="M7 8a2 2 0 1 1 -1.995 2.15l-.005 -.15l.005 -.15a2 2 0 0 1 1.995 -1.85z"
+                                         stroke-width="0" fill="currentColor"></path>
+                                </svg>
+                            </span>
+                            <span class="hide-menu">Room</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a class="sidebar-link" href="/manager/reservation" aria-expanded="false">
+                            <span>
+                                <svg xmlns="http://www.w3.org/2000/svg"
+                                     class="icon icon-tabler icon-tabler-bookmark-filled" width="24" height="24"
+                                     viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                                     stroke-linecap="round" stroke-linejoin="round">
+                                   <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                   <path d="M14 2a5 5 0 0 1 5 5v14a1 1 0 0 1 -1.555 .832l-5.445 -3.63l-5.444 3.63a1 1 0 0 1 -1.55 -.72l-.006 -.112v-14a5 5 0 0 1 5 -5h4z"
+                                         stroke-width="0" fill="currentColor"></path>
+                                </svg>
+                            </span>
+                            <span class="hide-menu">Reservation</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a class="sidebar-link" href="/manager/invoice" aria-expanded="false">
+                            <span>
+                                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-file-dollar"
+                                     width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
+                                     fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                   <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                   <path d="M14 3v4a1 1 0 0 0 1 1h4"></path>
+                                   <path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z"></path>
+                                   <path d="M14 11h-2.5a1.5 1.5 0 0 0 0 3h1a1.5 1.5 0 0 1 0 3h-2.5"></path>
+                                   <path d="M12 17v1m0 -8v1"></path>
+                                </svg>
+                            </span>
+                            <span class="hide-menu">Invoice</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a class="sidebar-link" href="/manager/feedback" aria-expanded="false">
+                            <span>
+                                <svg xmlns="http://www.w3.org/2000/svg"
+                                     class="icon icon-tabler icon-tabler-message-report" width="24" height="24"
+                                     viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                                     stroke-linecap="round" stroke-linejoin="round">
+                                   <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                   <path d="M4 21v-13a3 3 0 0 1 3 -3h10a3 3 0 0 1 3 3v6a3 3 0 0 1 -3 3h-9l-4 4"></path>
+                                   <path d="M12 8l0 3"></path>
+                                   <path d="M12 14l0 .01"></path>
+                                </svg>
+                            </span>
+                            <span class="hide-menu">Feedback</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a class="sidebar-link" href="/manager/service" aria-expanded="false">
+                            <span>
+                                <svg xmlns="http://www.w3.org/2000/svg"
+                                     class="icon icon-tabler icon-tabler-plane-arrival" width="24" height="24"
+                                     viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                                     stroke-linecap="round" stroke-linejoin="round">
+                                   <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                   <path d="M15.157 11.81l4.83 1.295a2 2 0 1 1 -1.036 3.863l-14.489 -3.882l-1.345 -6.572l2.898 .776l1.414 2.45l2.898 .776l-.12 -7.279l2.898 .777l2.052 7.797z"></path>
+                                   <path d="M3 21h18"></path>
+                                </svg>
+                            </span>
+                            <span class="hide-menu">Services</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a class="sidebar-link" href="/manager/meal" aria-expanded="false">
+                            <span>
+                                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-soup"
+                                     width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50"
+                                     fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                      <path d="M4 11h16a1 1 0 0 1 1 1v.5c0 1.5 -2.517 5.573 -4 6.5v1a1 1 0 0 1 -1 1h-8a1 1 0 0 1 -1 -1v-1c-1.687 -1.054 -4 -5 -4 -6.5v-.5a1 1 0 0 1 1 -1z"/>
+                                      <path d="M12 4a2.4 2.4 0 0 0 -1 2a2.4 2.4 0 0 0 1 2"/>
+                                      <path d="M16 4a2.4 2.4 0 0 0 -1 2a2.4 2.4 0 0 0 1 2"/>
+                                      <path d="M8 4a2.4 2.4 0 0 0 -1 2a2.4 2.4 0 0 0 1 2"/>
+                                </svg>
+                            </span>
+                            <span class="hide-menu">Meal</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a class="sidebar-link" href="" aria-expanded="false">
+                            <span>
+                                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-logout-2"
+                                     width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
+                                     fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                   <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                   <path d="M10 8v-2a2 2 0 0 1 2 -2h7a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-7a2 2 0 0 1 -2 -2v-2"></path>
+                                   <path d="M15 12h-12l3 -3"></path>
+                                   <path d="M6 15l-3 -3"></path>
+                                </svg>
+                            </span>
+                            <span class="hide-menu">Logout</span>
+                        </a>
+                    </li>
+                </ul>
+
+            </nav>
+            <!-- End Sidebar navigation -->
+        </div>
+    </aside>
+    <!--  Main wrapper -->
+    <div class="body-wrapper">
+        <!--  Header Start -->
+        <header class="app-header">
+            <nav class="navbar navbar-expand-lg navbar-light">
+                <ul class="navbar-nav">
+                    <li class="nav-item d-block d-xl-none">
+                        <a class="nav-link sidebartoggler nav-icon-hover" id="headerCollapse" href="javascript:void(0)">
+                            <i class="ti ti-menu-2"></i>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </header>
+        <div class="container-fluid">
+            <div class="row align-items-center mb-3">
+                <button type="button" class="ms-auto col-2 btn btn-outline-primary" data-bs-toggle="modal"
+                        data-bs-target="#addBookingModal">Add booking
+                </button>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <div class="" id="cal">
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!-- Add booking modal -->
+        <div class="modal fade modal-xl" id="addBookingModal" tabindex="-1" role="dialog" aria-labelledby=""
+             aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="">Add new booking</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true"></span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <header>
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <img class="img-fluid ms-auto me-auto d-block" src="/images/Logo.png"
+                                             width="200">
+                                    </div>
+                                </div>
+                            </div>
+                        </header>
+
+                        <section class="mt-4">
+                            <div class="container">
+                                <form class="card">
+                                    <div class="card-header">
+                                        <nav class="nav nav-pills nav-fill">
+                                            <a class="nav-link tab-pills" href="#">Book a room</a>
+                                            <a class="nav-link tab-pills" href="#">Add information</a>
+                                            <a class="nav-link tab-pills" href="#">Add meal</a>
+                                            <a class="nav-link tab-pills" href="#">Comfirm</a>
+                                        </nav>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="tab d-none">
+                                            <div class="row">
+                                                <section class="section bg-light pb-0">
+                                                    <div class="container">
+                                                        <div class="row check-availabilty" id="next">
+                                                            <div class="block-32" data-aos="fade-up"
+                                                                 data-aos-offset="-200">
+                                                                <form onsubmit="false">
+                                                                    <div class="row">
+                                                                        <div class="col-md-6 mb-3 mb-lg-0 col-lg-3">
+                                                                            <label for="book_room_from"
+                                                                                   class="font-weight-bold text-black">From</label>
+                                                                            <div class="field-icon-wrap">
+                                                                                <div class="icon"><span
+                                                                                            class="icon-calendar"></span>
+                                                                                </div>
+                                                                                <input type="date" id="book_room_from"
+                                                                                       class="form-control"
+                                                                                       min="<%= new Date().toJSON().slice(0, 10).replace(/-/g, '-') %>">
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-6 mb-3 mb-lg-0 col-lg-3">
+                                                                            <label for="book_room_to"
+                                                                                   class="font-weight-bold text-black">To</label>
+                                                                            <div class="field-icon-wrap">
+                                                                                <div class="icon"><span
+                                                                                            class="icon-calendar"></span>
+                                                                                </div>
+                                                                                <input type="date" id="book_room_to"
+                                                                                       class="form-control"
+                                                                                       min="<%= new Date().toJSON().slice(0, 10).replace(/-/g, '-') %>">
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-6 mb-3 mb-md-0 col-lg-3">
+                                                                            <div class="row">
+                                                                                <div class="col-md-6 mb-3 mb-md-0">
+                                                                                    <label for="adults"
+                                                                                           class="font-weight-bold text-black">Adults</label>
+                                                                                    <div class="field-icon-wrap">
+                                                                                        <div class="icon"><span
+                                                                                                    class="ion-ios-arrow-down"></span>
+                                                                                        </div>
+                                                                                        <select name="" id="adults"
+                                                                                                class="form-control">
+                                                                                            <option value="1">1</option>
+                                                                                            <option value="2">2</option>
+                                                                                            <option value="3">3</option>
+                                                                                            <option value="4">4+
+                                                                                            </option>
+                                                                                        </select>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="col-md-6 mb-3 mb-md-0">
+                                                                                    <label for="children"
+                                                                                           class="font-weight-bold text-black">Children</label>
+                                                                                    <div class="field-icon-wrap">
+                                                                                        <div class="icon"><span
+                                                                                                    class="ion-ios-arrow-down"></span>
+                                                                                        </div>
+                                                                                        <select name="" id="children"
+                                                                                                class="form-control">
+                                                                                            <option value="0">0</option>
+                                                                                            <option value="1">1</option>
+                                                                                            <option value="2">2</option>
+                                                                                            <option value="3">3+
+                                                                                            </option>
+                                                                                        </select>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-6 col-lg-3 align-self-end">
+                                                                            <button class="checkAvailableBtnBookroom btn btn-primary btn-block text-white"
+                                                                                    type="button">Check Availabilty
+                                                                            </button>
+                                                                        </div>
+                                                                    </div>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </section>
+                                                <section class="section">
+                                                    <div class="container">
+                                                        <div class="row roomsList">
+
+                                                        </div>
+                                                    </div>
+                                                </section>
+
+                                            </div>
+                                        </div>
+                                        <div class="tab d-none">
+                                            <div class="mb-3">
+                                                <label for="name" class="form-label">First Name</label>
+                                                <input type="text" class="form-control " name="name" id="fname"
+                                                       placeholder="Enter Guest's first name">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="name" class="form-label">Last Name</label>
+                                                <input type="text" class="form-control" name="name" id="lname"
+                                                       placeholder="Enter Guest's last name">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="phone number" class="form-label">Phone</label>
+                                                <input type="number" class="form-control" name="phone" id="phone"
+                                                       placeholder="Enter Guest's phone">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="book_room_vehicle--add" class="font-weight-bold text-black">Vehicle</label>
+                                                <div class="field-icon-wrap">
+                                                    <select name="" id="book_room_vehicle--add" class="form-control"
+                                                            data-id="">
+                                                        <option value="None" selected>None</option>
+                                                        <option value="Car">Car</option>
+                                                        <option value="Bus">Bus</option>
+                                                        <option value="Limousine">Limousine</option>
+                                                    </select>
+                                                </div>
+                                                <div class="row mb-3">
+                                                    <div class="col-md-6 form-group transfer-information d-none">
+                                                        <label class="text-black font-weight-bold"
+                                                               for="book_room_vehicle_pickUp--add"></label>
+                                                        <input type="text" id="book_room_vehicle_pickUp--add"
+                                                               class="form-control "
+                                                               placeholder="Enter Pick up location">
+                                                    </div>
+                                                    <div class="col-md-6 form-group transfer-information d-none">
+                                                        <label class="text-black font-weight-bold"
+                                                               for="book_room_vehicle_destination--add"></label>
+                                                        <input type="text" id="book_room_vehicle_destination--add"
+                                                               class="form-control " placeholder="Enter destination">
+                                                    </div>
+                                                    <div class="field-icon-wrap form-group transfer-information d-none">
+                                                        <div class="icon"><span
+                                                                    class="icon-calendar"></span>
+                                                        </div>
+                                                        <input type="date" id="book_room_vehicle_time--add" aria-label="book_room_vehicle_time--add"
+                                                               class="form-control"
+                                                               min="<%= new Date().toJSON().slice(0, 10).replace(/-/g, '-') %>">
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="row mb-6 ">
+                                                    <div class="col-md-12 form-group">
+                                                        <label class="text-black font-weight-bold" for="room_note--add">Special
+                                                            Service</label>
+                                                        <textarea name="message" id="room_note--add"
+                                                                  class="form-control " cols="10" rows="8"></textarea>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="tab d-none">
+                                            <div class="row meals mx-2 align-items-stretch">
+                                                <% meals.forEach(function(meal) { %>
+                                                    <div class="col-3 p-2 ">
+                                                        <div class="card meal h-100 mb-0">
+                                                            <button class="btn mt-5 btn-outline-primary btn-meal"
+                                                                    type="button" data-id="<%= meal.id %>">
+                                                                <h5 class="card-title"><%= meal.name %></h5>
+                                                                <p class="card-text"><%= meal.ingredients %></p>
+                                                                <span class="light"><%= parseInt(meal.price).toLocaleString("vi-VN", {
+                                                                        currency: "VND", style: "currency"
+                                                                    }) %></span>
+                                                                <input id="number_meals"
+                                                                       class="number_meal form-control" type="number"
+                                                                       placeholder="Enter Number">
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                <% }); %>
+                                            </div>
+                                        </div>
+                                        <div class="tab d-none">
+                                            <p>All Set! Please submit to continue. Thank you</p>
+                                        </div>
+                                    </div>
+                                    <div class="card-footer text-end">
+                                        <div class="d-flex">
+                                            <button type="button" id="back_button" class="btn btn-link"
+                                                    onclick="back()">Back
+                                            </button>
+                                            <button type="button" id="next_button"
+                                                    class="btn btn-primary ms-auto btn-next" disabled="disabled"
+                                                    onclick="next()">Next
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+            </div>
+            <!-- Add booking modal -->
+
+
+        </div>
+</body>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/css/toastr.css" rel="stylesheet"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/js/toastr.js"></script>
+<script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"
+></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"
+        integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh"
+        crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/js/toastr.js"></script>
+</body>
+<script src="/js/manager/meal.js"></script>
+<script src="/js/manager/sidebarmenu.js"></script>
+<script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.9/index.global.min.js'></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var calendarEl = document.getElementById('cal');
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+            initialView: 'dayGridMonth',
+            headerToolbar: {
+                left: 'prev,next today',
+                center: 'title',
+                right: 'dayGridMonth,timeGridWeek,timeGridDay'
+            },
+            contentHeight: "auto",
+            events: function (fetchInfo, successCallback, failureCallback) {
+                let reservation =[]
+                $.ajax ({
+                    type: 'GET',
+                    url: '/api/reservation/all',
+                    contentType: 'application/json',
+                    success: function(data) {
+                        const dataReser = data.data
+                        dataReser.forEach(element => {
+                            console.log(element)
+                            reservation.push({
+                                title: element.room.roomNumber,
+                                start: element.checkIn,
+                                end: element.checkOut,
+                                extendedProps: {
+                                    department: 'Booked'
+                                },
+                            })
+                        }),
+                        console.log(reservation)
+                        successCallback(reservation)
+                    },
+
+                    error: function (err) {
+                        console.log(err)
+                    }
+                })
+            },
+            eventClick: function (event) {
+                console.log(event.event.title);
+                alert('Phòng này đã được đặt trước');
+            }
+        });
+        calendar.render();
+    });
+</script>
+<script src="/js/receptionist/frontdesk.js"></script>
+
+</html>
